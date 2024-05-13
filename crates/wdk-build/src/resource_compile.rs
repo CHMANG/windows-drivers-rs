@@ -104,10 +104,12 @@ fn invoke_rc(s7:impl Iterator<Item = String>) {
                 println!("Resource compilation successful!");
             } else {
                 println!("Resource compilation failed.");
+                std::process::exit(1); 
             }
         }
         Err(err) => {
             eprintln!("Error running rc.exe: {}", err);
+            std::process::exit(1);
         }
     }
 }
