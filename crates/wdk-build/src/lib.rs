@@ -14,6 +14,7 @@
 
 mod bindgen;
 mod utils;
+mod resource_compile;
 
 pub mod cargo_make;
 
@@ -553,7 +554,7 @@ impl Config {
     /// Panics if the invoked from outside a Cargo build environmen
     pub fn configure_binary_build(&self) -> Result<(), ConfigError> {
         self.configure_library_build()?;
-
+        resource_compile::generate_and_compile_rcfile(self.get_include_paths()?);
         // Linker arguments derived from Microsoft.Link.Common.props in Ni(22H2) WDK
         println!("cargo:rustc-cdylib-link-arg=/NXCOMPAT");
         println!("cargo:rustc-cdylib-link-arg=/DYNAMICBASE");
